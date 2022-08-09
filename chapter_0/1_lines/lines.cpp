@@ -1,19 +1,20 @@
 #include <iostream>
+#include <stdio.h> 
+#include <cmath> 
 using std::cout;
 using std::cin;
 using std::endl;
 
-float findSlope(float pt1[2], float pt2[2], float riseAndRun[2]);
-float findPointSlope(float pt1[2], float riseAndRun[2],float result);
+double findSlope(int pt1[2], int pt2[2], int slope[2]);
+double findPointSlope(int pt[2], int slope[2], double result);
 
 int main() {
-    
-    float pt1[2];
-    float pt2[2];
-    float riseAndRun[2];
+    int pt1[2];
+    int pt2[2];
+    int slope[2];
 
-    // float pt1[2] = {-2, -3};
-    // float pt2[2] = {8, 2};
+    // int pt1[2] = {-2, -3};
+    // int pt2[2] = {8, 2};
 
     cout << "Please enter the point 1: ";
     cin >> pt1[0] >> pt1[1];
@@ -21,66 +22,69 @@ int main() {
     cout << "Please enter the point 2: ";
     cin >> pt2[0] >> pt2[1];
 
-    cout << '\n' << "====================================" << endl;
-    cout << "The entered points" << endl;
-    cout << "First point\t: (" << pt1[0] << ", " << pt1[1] << ") "<< endl;
-    cout << "Second point\t: (" << pt2[0] << ", "<< pt2[1] << ") "<< endl;
+    printf("\n====================================\n");
+    printf("The entered points\n");
+    printf("First point\t: (%d, %d) \n", pt1[0], pt1[1]);
+    printf("Second point\t: (%d, %d) \n", pt2[0], pt2[1]);
 
-    float result = findSlope(pt1, pt2, riseAndRun);
-    cout << "The slope (m) is : " << riseAndRun[0] << " / "<<  riseAndRun[1] << endl;
-    cout << "The slope (m) is : " << result << endl;
+    double result = findSlope(pt1, pt2, slope);
+    printf("The slope (m) is : (%d / %d) \n", slope[0], slope[1]);
+    printf("The slope (m) is : %.2lf", result); 
 
-    cout << '\n' << "====================================" << endl;
-    cout <<  "====================================" << '\n' << endl;
+    printf("\n\n====================================\n");
+    printf("====================================\n\n");
 
-    float shift = findPointSlope(pt1, riseAndRun, result);
-
+    double shift = findPointSlope(pt1, slope, result);
+    cout << '\n' << endl;
     if (shift > 0) {
-        cout << "Shift up " << abs(shift) << " points" << endl;
+        cout << "Shift up " << std::abs(shift) << " points" << endl;
     } else if (shift == 0) {
         cout << "Does not shift" << endl;
     } else {
-        cout << "Shift down " << abs(shift) << " points" << endl;
+        cout << "Shift down " << std::abs(shift) << " points" << endl;
     }
-
-
-    
-
-
-
-
 
 
     return 0;
 }
 
-float findSlope(float pt1[2], float pt2[2], float riseAndRun[2]) {
-    float rise = pt2[1] - pt1[1];
-    float run = pt2[0] - pt1[0];
+double findSlope(int pt1[2], int pt2[2], int slope[2]) {
+    int rise = pt2[1] - pt1[1];
+    int run = pt2[0] - pt1[0];
 
-    cout << '\n' << "----------------------------" << endl;
-    cout << "The rise (y2 - y1)\t: " << pt2[1] << " - " << pt1[1] <<  " = " << rise << endl;
-    cout << "The run (x2 - x1)\t: " << pt2[0] << " - " << pt1[0] <<  " = " << run << endl;
-    cout <<  "----------------------------" << '\n' << endl;
+    printf("\n----------------------------\n");
+    printf("The rise (y2 - y1)\t: %d - %d = %d\n", pt2[1], pt1[1], rise);
+    printf("The run (x2 - x1)\t: %d - %d = %d\n\n", pt2[0], pt1[0], run);
 
-    // cout << "The slope is: " << rise << " / "<< run <<  endl;
-    riseAndRun[0] = rise;
-    riseAndRun[1] = run;
+    printf("----------------------------\n");
+    slope[0] = rise;
+    slope[1] = run;
 
-    return rise/run;
+    return (double)rise/run;
 }
 
-float findPointSlope(float pt1[2], float riseAndRun[2], float result) {
+double findPointSlope(int pt[2], int slope[2], double result) {
 
-    cout << "Equation of Point-Slope" << endl;
-    cout << "Formula\t: " << "y - y1 = m(x - x1)" << endl;
-    cout << "\t: " << "y - " << pt1[1] << " = (" << riseAndRun[0] << " / "<<  riseAndRun[1] << ") (x - " << pt1[0] << ")" << endl;
-    cout << "\t: " << "y" << " = (" << riseAndRun[0] << " / "<<  riseAndRun[1] << ") (x - " << pt1[0] << ") + " << pt1[1] << endl;
+    cout << "Equation of Point-Slope\n" << endl;
+
+    printf("Formula\t: y - y1 = m(x - x1)\n"); 
+    printf("\t: y - %d = (%d/%d) (x - %d)\n", pt[1], slope[0], slope[1], pt[0]);
+    printf("\t: y = (%d/%d) (x - %d) + %d \n",  slope[0], slope[1], pt[0], pt[1]);
+
+    cout << "\t" << endl;
+
+    printf("\t: y = (%d/%d)x + (%d*%d / %d) + %d \n",  slope[0], slope[1], slope[0], -pt[0], slope[1], pt[1]);
+    printf("\t: y = (%d/%d)x + (%d/%d) + %d \n",  slope[0], slope[1], (slope[0] * -pt[0]), slope[1], pt[1]);
+    printf("\t: y = (%d/%d)x + (%d/%d) + (%d/%d) \n",  slope[0], slope[1], (slope[0] * -pt[0]), slope[1], (slope[1] *  pt[1]), slope[1]);
+    printf("\t: y = (%d/%d)x + (%d/%d) \n",  slope[0], slope[1], ((slope[0] * -pt[0]) + (slope[1] *  pt[1])), slope[1]);
+    
+    cout << "\tOR" << endl;
+    
+    printf("\t: y = (%d/%d)x + %.2lf + %d \n",  slope[0], slope[1], (double)(-pt[0] * result), pt[1]);
 
 
-    // y = m.x - (m.x1 + y1)
+    double shift = (-pt[0] * result) + pt[1]; 
+    printf("\t: y = (%d/%d)x + %.2lf \n",  slope[0], slope[1], shift);
 
-    float shift = (-pt1[0] * result) + pt1[1]; 
-    cout << "\t: " << "y" << " = (" << riseAndRun[0] << " / "<<  riseAndRun[1] << ")x + " << shift  << endl;
     return shift;
 }
