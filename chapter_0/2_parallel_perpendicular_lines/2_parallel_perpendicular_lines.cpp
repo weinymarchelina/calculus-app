@@ -18,7 +18,7 @@ int main() {
 
     // TEST: https://www.wtamu.edu/academic/anns/mps/math/mathlab/col_algebra/col_alg_tut28_parpen.htm#:~:text=The%20slope%20of%20the%20parallel%20line%20is%200%20and%20the,the%20perpendicular%20line%20is%20undefined.
     // https://corbettmaths.com/wp-content/uploads/2013/02/parallel-and-perpendicular-graphs-pdf.pdf
-
+    // https://corbettmaths.com/wp-content/uploads/2019/08/perpendicular-lines.pdf
 
     cout << "Please enter the point: ";
     cin >> pt[0] >> pt[1];
@@ -77,7 +77,8 @@ int main() {
         cout << "Shift down " << std::abs(shift) << " points" << endl;
     }
 
-
+    printf("Press ENTER key to Continue\n");  
+    getchar(); 
     return 0;
 }
 

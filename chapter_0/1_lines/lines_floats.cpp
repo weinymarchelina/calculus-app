@@ -44,7 +44,7 @@ int main() {
         cout << "Shift down " << std::abs(shift) << " points" << endl;
     }
 
-
+    system("pause");  
     return 0;
 }
 
